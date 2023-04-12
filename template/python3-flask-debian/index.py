@@ -28,9 +28,9 @@ def fix_transfer_encoding():
 @app.route("/<path:path>", methods=["POST", "GET"])
 def main_route(path):
     if (request.method == 'POST'):
-        json_data = request.get_data().decode('utf-8').replace("'", '"')
-        body = json.loads(json_data)
-        ret = handler.handle(body)
+        file = request.files['file']
+        img_bytes = file.read()
+        ret = handler.handle(img_bytes)
         return ret
     else:
         return request.method
